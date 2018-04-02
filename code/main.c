@@ -39,7 +39,9 @@ SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
 SDL_Rect player_position = {670, 370, 90, 140};
 SDL_Rect zombie_position = {1300, 570, 90, 140};
 SDL_Rect zombie_position1 = {1900, 570, 90, 140};
-SDL_Rect zombie_position2 = {2050, 570, 90, 140};
+SDL_Rect zombie_position2 = {3500
+
+, 570, 90, 140};
 SDL_Rect zombie_position3 = {2150, 570, 90, 140};
 SDL_Rect zombie_position4 = {2500, 570, 90, 140};
 SDL_Rect box1 = {720, 390, 200, 100};
@@ -455,7 +457,7 @@ int main(int first, char* array[] ){
                         }
                     }
 
-                                        if (zombie_status2){
+                    if (zombie_status2){
                         if (animation_zombie/15 > 8){
                             animation_zombie = 0;
                         }
@@ -536,7 +538,7 @@ int main(int first, char* array[] ){
                         player_position.y = 570;
                     }
                     if (zombie1 == 1){
-                        zombie_position1.x = 1600;
+                        zombie_position1.x = 2500;
                         zombie_position1.y = 570;
                         SDL_RenderCopy(grenderer, zombie_texture, &zombie_animation[animation_zombie/15], &zombie_position1);
                         zombie1 = 0;
