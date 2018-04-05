@@ -30,14 +30,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/Users/cyk/Desktop/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
-			<Add directory="C:/Users/cyk/Desktop/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
+			<Add directory="C:/Users/USER/Desktop/SDL_Library/SDL2-2.0.8/i686-w64-mingw32/include/SDL2" />
+			<Add directory="C:/Users/USER/Desktop/SDL_Library/SDL2_image-2.0.3/i686-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
 			<Add option="-static-libgcc -static-libstdc++" />
-			<Add directory="C:/Users/cyk/Desktop/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
-			<Add directory="C:/Users/cyk/Desktop/SDL2-2.0.8/i686-w64-mingw32/lib" />
+			<Add directory="C:/Users/USER/Desktop/SDL_Library/SDL2-2.0.8/i686-w64-mingw32/lib" />
+			<Add directory="C:/Users/USER/Desktop/SDL_Library/SDL2_image-2.0.3/i686-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

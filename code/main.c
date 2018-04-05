@@ -31,11 +31,14 @@ SDL_Surface* zombieattack_surface;
 SDL_Texture* zombieattack_texture;
 SDL_Surface* zombie_surface;
 SDL_Texture* zombie_texture;
+SDL_Surface* boss_surface;
+SDL_Texture* boss_texture;
 SDL_Texture* player;
 SDL_Renderer* grenderer;
 SDL_Window* window = NULL;
 SDL_Surface* screensurface = NULL;
 SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
+SDL_Rect boss_position = {1350, 165, 370, 550};
 SDL_Rect player_position = {670, 370, 90, 140};
 SDL_Rect zombie_position = {1300, 570, 90, 140};
 SDL_Rect zombie_position1 = {1900, 570, 90, 140};
@@ -46,6 +49,7 @@ SDL_Rect box1 = {720, 380, 200, 100};
 SDL_Rect box2 = {930, 260, 300, 100};
 SDL_Rect box3 = {1080, 120, 310, 100};
 SDL_Rect player_animation[13];
+SDL_Rect boss_animation[13];
 SDL_Rect zombie_animation[13];
 SDL_Rect zombie_attack_animation[9];
 SDL_Texture* zombie;
@@ -221,11 +225,17 @@ void setanimation(){
     zombie_attack_animation[7].y = 0;
     zombie_attack_animation[7].w = 220;
     zombie_attack_animation[7].h = 350;
+
+    boss_animation[0].x = 0;
+    boss_animation[0].y = 0;
+    boss_animation[0].w = 420;
+    boss_animation[0].h = 750;
 }
 
 
 bool loadmedia(){
     bool success = true;
+
     background_surface = IMG_Load("Menu.png");
     if (background_surface == NULL)
     {
@@ -233,6 +243,7 @@ bool loadmedia(){
         success = false;
     }
     background_texture = SDL_CreateTextureFromSurface(grenderer, background_surface);
+
 
     start_surface = IMG_Load("start.png");
     if (start_surface == NULL)
@@ -242,6 +253,7 @@ bool loadmedia(){
     }
     start_texture = SDL_CreateTextureFromSurface(grenderer, start_surface);
 
+
     background_gamesurface = IMG_Load("../graphic/bg.png");
     if (background_gamesurface == NULL)
     {
@@ -250,6 +262,7 @@ bool loadmedia(){
     }
     background_gametexture = SDL_CreateTextureFromSurface(grenderer, background_gamesurface);
 
+
     player_stand_suface = IMG_Load("../graphic/player_stand.png");
     if (player_stand_suface == NULL)
     {
@@ -257,6 +270,7 @@ bool loadmedia(){
         success = false;
     }
     player_stand_texture = SDL_CreateTextureFromSurface(grenderer, player_stand_suface);
+
 
     player_walk1_suface = IMG_Load("../graphic/player_walk1.png");
     if (player_walk1_suface == NULL)
@@ -317,8 +331,19 @@ bool loadmedia(){
     }
 
     zombieattack_texture = SDL_CreateTextureFromSurface(grenderer, zombieattack_surface);
+
+
+    boss_surface = IMG_Load("../graphic/boss.png");
+    if (boss_surface == NULL)
+    {
+        printf("load boss.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    boss_texture = SDL_CreateTextureFromSurface(grenderer, boss_surface);
+
     setanimation();
     return success;
+
 }
 
 
@@ -407,8 +432,11 @@ int main(int first, char* array[] ){
                     }
 
                     if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_w && check_jump == false){
-                        speed = -7;
+                        speed = -6.5;
                         check_jump = true;
+                    }
+                    if(event.type == SDL_KEYUP){
+                        animation_player = 0;
                     }
 
 
@@ -424,6 +452,7 @@ int main(int first, char* array[] ){
                     time++;
                     SDL_RenderCopy(grenderer, background_gametexture, NULL, NULL);
                     SDL_RenderCopy(grenderer, player_animation_texture, &player_animation[animation_player / 3], &player_position);
+                    SDL_RenderCopy(grenderer, boss_texture, &boss_animation[0], &boss_position);
                     animation_zombie++;
                     speed += gravity;
                     player_position.y += speed;
