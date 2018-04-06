@@ -49,7 +49,7 @@ SDL_Rect box1 = {720, 380, 200, 100};
 SDL_Rect box2 = {930, 260, 300, 100};
 SDL_Rect box3 = {1080, 120, 310, 100};
 SDL_Rect player_animation[13];
-SDL_Rect boss_animation[13];
+SDL_Rect boss_animation[15];
 SDL_Rect zombie_animation[13];
 SDL_Rect zombie_attack_animation[9];
 SDL_Texture* zombie;
@@ -230,6 +230,76 @@ void setanimation(){
     boss_animation[0].y = 0;
     boss_animation[0].w = 420;
     boss_animation[0].h = 750;
+
+    boss_animation[1].x = 510;
+    boss_animation[1].y = 0;
+    boss_animation[1].w = 420;
+    boss_animation[1].h = 750;
+
+    boss_animation[2].x = 1020;
+    boss_animation[2].y = 0;
+    boss_animation[2].w = 420;
+    boss_animation[2].h = 750;
+
+    boss_animation[3].x = 1530;
+    boss_animation[3].y = 0;
+    boss_animation[3].w = 420;
+    boss_animation[3].h = 750;
+
+    boss_animation[4].x = 2040;
+    boss_animation[4].y = 0;
+    boss_animation[4].w = 420;
+    boss_animation[4].h = 750;
+
+    boss_animation[5].x = 2550;
+    boss_animation[5].y = 0;
+    boss_animation[5].w = 420;
+    boss_animation[5].h = 750;
+
+    boss_animation[6].x = 3060;
+    boss_animation[6].y = 0;
+    boss_animation[6].w = 420;
+    boss_animation[6].h = 750;
+
+    boss_animation[7].x = 3550;
+    boss_animation[7].y = 0;
+    boss_animation[7].w = 420;
+    boss_animation[7].h = 750;
+
+    boss_animation[8].x = 4060;
+    boss_animation[8].y = 0;
+    boss_animation[8].w = 420;
+    boss_animation[8].h = 750;
+
+    boss_animation[9].x = 4550;
+    boss_animation[9].y = 0;
+    boss_animation[9].w = 420;
+    boss_animation[9].h = 750;
+
+    boss_animation[10].x = 5050;
+    boss_animation[10].y = 0;
+    boss_animation[10].w = 420;
+    boss_animation[10].h = 750;
+
+    boss_animation[11].x = 5550;
+    boss_animation[11].y = 0;
+    boss_animation[11].w = 420;
+    boss_animation[11].h = 750;
+
+    boss_animation[12].x = 6050;
+    boss_animation[12].y = 0;
+    boss_animation[12].w = 420;
+    boss_animation[12].h = 750;
+
+    boss_animation[13].x = 6550;
+    boss_animation[13].y = 0;
+    boss_animation[13].w = 420;
+    boss_animation[13].h = 750;
+
+    boss_animation[14].x = 7070;
+    boss_animation[14].y = 0;
+    boss_animation[14].w = 420;
+    boss_animation[14].h = 750;
 }
 
 
@@ -407,7 +477,7 @@ int main(int first, char* array[] ){
             float gravity = 0.135
              ,speed;
             display = background_texture;
-            int animation_player = 0, animation_zombie = 0;
+            int animation_player = 0, animation_zombie = 0, animation_boss = 0;
             int quit = 0;
             while (!quit){
                 SDL_Event event;
@@ -452,8 +522,9 @@ int main(int first, char* array[] ){
                     time++;
                     SDL_RenderCopy(grenderer, background_gametexture, NULL, NULL);
                     SDL_RenderCopy(grenderer, player_animation_texture, &player_animation[animation_player / 3], &player_position);
-                    SDL_RenderCopy(grenderer, boss_texture, &boss_animation[0], &boss_position);
+                    SDL_RenderCopy(grenderer, boss_texture, &boss_animation[animation_boss / 9], &boss_position);
                     animation_zombie++;
+                    animation_boss++;
                     speed += gravity;
                     player_position.y += speed;
 
@@ -461,6 +532,10 @@ int main(int first, char* array[] ){
                     {
                         animation_player = 0;
                     }
+                    if (animation_boss/9 > 14){
+                        animation_boss = 0;
+                    }
+
                     if (zombie_status1){
                         if (animation_zombie/15 > 8){
                             animation_zombie = 0;
