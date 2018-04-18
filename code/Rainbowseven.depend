@@ -1055,7 +1055,7 @@
 	<stdbool.h>
 	<stdlib.h>
 
-1522907516 source:c:\users\user\documents\github\rainbowseven_game\code\main.c
+1524017308 source:c:\users\user\documents\github\rainbowseven_game\code\main.c
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
@@ -1404,7 +1404,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1522987717 source:c:\users\cyk\documents\github\rainbowseven_game\code\main.c
+1523953279 source:c:\users\cyk\documents\github\rainbowseven_game\code\main.c
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
@@ -1412,4 +1412,10 @@
 	<math.h>
 	<stdbool.h>
 	<stdlib.h>
+
+1519932851 c:\users\cyk\documents\github\rainbowseven_game\library\sdl2_image-2.0.3\i686-w64-mingw32\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
 
