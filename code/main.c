@@ -43,8 +43,11 @@ SDL_Surface* santagun_surface;
 SDL_Texture* santagun_texture;
 SDL_Texture* player;
 SDL_Renderer* grenderer;
+SDL_Surface* santabar_surface;
+SDL_Texture* santabar_texture;
 SDL_Window* window = NULL;
 SDL_Surface* screensurface = NULL;
+SDL_Rect santabar_position = {200,130, 300, 300};
 SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
 SDL_Rect boss_position = {1350, 165, 370, 550};
 SDL_Rect player_position = {670, 370, 90, 140};
@@ -72,12 +75,13 @@ SDL_Rect bl_position1 = {99999, 500, 30, 30};
 SDL_Rect bl_position2 = {99999, 500, 30, 30};
 SDL_Rect bl_position3 = {99999, 500, 30, 30};
 SDL_Rect bl_position4 = {99999, 500, 30, 30};
-
 SDL_Texture* display;
 SDL_Texture* player;
 int shoot = 0;
 bool game_menu = true;
 bool ingame = false;
+
+
 bool init(){
     bool success = true;
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
@@ -100,7 +104,6 @@ bool init(){
     }
     return success;
 }
-
 void setanimation(){
     player_animation[0].x = 0;
     player_animation[0].y = 0;
@@ -498,7 +501,7 @@ int bullet(SDL_Rect a){
 bool loadmedia(){
     bool success = true;
 
-    background_surface = IMG_Load("Menu.png");
+    background_surface = IMG_Load("../graphic/menu.png");
     if (background_surface == NULL)
     {
         printf("load menu.png failed %s\n", IMG_GetError());
@@ -602,6 +605,14 @@ bool loadmedia(){
         success = false;
     }
     zombie_die_texture = SDL_CreateTextureFromSurface(grenderer, zombie_die_surface);
+
+    santabar_surface = IMG_Load("../graphic/santa_bar.png");
+    if (santabar_surface == NULL)
+    {
+        printf("load santa_bar.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    santabar_texture = SDL_CreateTextureFromSurface(grenderer, santabar_surface);
 
     setanimation();
     return success;
@@ -738,7 +749,7 @@ int main(int first, char* array[] ){
                 SDL_RenderClear(grenderer);
                 if(game_menu){
                     SDL_RenderCopy(grenderer, background_texture, NULL, NULL);
-                    SDL_RenderCopy(grenderer, start_texture, NULL, &start_position);
+
                 }
                 else if(ingame){
 
@@ -749,13 +760,14 @@ int main(int first, char* array[] ){
                     player_position.y += speed;
                     SDL_RenderCopy(grenderer, background_gametexture, NULL, NULL);
                     SDL_RenderCopy(grenderer, airdrop_texture, NULL, &airdrop);
-                    SDL_RenderCopy(grenderer, zombie_die_texture, &zombie_die[animation_zombie_die / 15], &zombie_test);
+                    //SDL_RenderCopy(grenderer, zombie_die_texture, &zombie_die[animation_zombie_die / 15], &zombie_test);
                     SDL_RenderCopy(grenderer, boss_texture, &boss_animation[animation_boss / 9], &boss_position);
 
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+                    SDL_RenderCopy(grenderer, santabar_texture, NULL, &santabar_position);
                     animation_zombie++;
                     animation_boss++;
                     if (checkCollision(player_position, airdrop)){
@@ -778,8 +790,7 @@ int main(int first, char* array[] ){
 
 
                     }
-                    else{
-                        if (player == santagun_texture){
+                    if (player == santagun_texture){
                             SDL_RenderCopy(grenderer, player, &gun_animation[animation_player / 2], &player_position);
                             if (player_position.y > 530){
                                 check_jump = false;
@@ -801,7 +812,7 @@ int main(int first, char* array[] ){
                                 printf("test");
                             }
                         }
-                    }
+
                     if (shoot == 1 || shoot == 2 || shoot == 3 || shoot == 4 || shoot == 5 || shoot == 0) {
                         bl_position.x += 8;
                         bl_position1.x += 8;
@@ -907,7 +918,7 @@ int main(int first, char* array[] ){
                         SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/15], &zombie_position);
 
                     }
-                    if (checkCollision(bl_position, zombie_position) || checkCollision(bl_position, zombie_position2)){
+                    if (checkCollision(bl_position, zombie_position) || checkCollision(bl_position, zombie_position1)){
                         if (checkCollision(bl_position, zombie_position)){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
                             bl_position.x = 9999;
@@ -916,10 +927,10 @@ int main(int first, char* array[] ){
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position);
                         }
-                        if (checkCollision(bl_position, zombie_position2)){
+                        if (checkCollision(bl_position, zombie_position1)){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
                             bl_position.x = 9999;
-                            zombie_alive2 = false;
+                            count_zombie++;
                             printf("hit");
                         }
                         else{
@@ -980,27 +991,24 @@ int main(int first, char* array[] ){
                     }
 
 
-
-                    /*if (!checkCollision( zombie_position2, player_position ) && zombie_alive1){ //zombie operation check attack if zombie crash player they will do attack animation
-
-                        zombie_position2.x -= 2.5;
+                    if (!checkCollision(zombie_position1, player_position)){
+                        zombie_position1.x -= 4;
                         zombie = zombie_texture;
                         zombie_status3 = 1;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/17], &zombie_position2);
-
-
+                        SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/19], &zombie_position1);
                     }
-                    /*if (zombie_alive1 && checkCollision( zombie_position2, player_position)){
+                    else if (checkCollision(zombie_position1, player_position) && zombie_alive1){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position2);
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position1);
                         zombie_status3 = 0;
                     }
-                    /*else if (!zombie_status3){
-
+                    else if (!zombie_alive1){
                         animation_zombie_die++;
                         zombie = zombie_die_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die/17], &zombie_position2);
+                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die/15], &zombie_position1);//
                     }
+
+
 
                     /*if (!checkCollision( zombie_position3, player_position )){ //zombie operation check attack if zombie crash player they will do attack animation
                         zombie_position3.x -= 4;
