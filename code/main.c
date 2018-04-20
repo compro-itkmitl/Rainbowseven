@@ -83,6 +83,9 @@ SDL_Texture* player;
 int shoot = 0;
 bool game_menu = true;
 bool ingame = false;
+bool alive[5] = {true,true,true,true,true};
+int check_bullet[5] = {0,0,0,0,0};
+int animation_zombie_die[5] = {0,0,0,0,0};
 
 
 bool init(){
@@ -685,7 +688,7 @@ int main(int first, char* array[] ){
         else{
 
             player = player_animation_texture;
-            char status = "ready";
+
             bool check_jump = false, zombie1 = 1, zombie_alive1 = true, zombie_alive2 = true;
             bool status_player = 0;
             bool zombie_status1 = 0,zombie_status2 = 0, zombie_status3 = 0,zombie_status4 = 0, zombie_status5 = 0;
@@ -693,7 +696,7 @@ int main(int first, char* array[] ){
             float gravity = 0.115
              ,speed,speedair,gravity_air = 0.01;
             display = background_texture;
-            int animation_player = 0, animation_zombie = 0, animation_boss = 0, animation_zombie_die = 0;
+            int animation_player = 0, animation_zombie = 0, animation_boss = 0;
             int quit = 0;
             while (!quit){
                 SDL_Event event;
@@ -835,14 +838,23 @@ int main(int first, char* array[] ){
                     if (shoot == 5){
                         shoot = 0;
                     }
-                    if (animation_zombie_die / 15 > 7){
+                    if (animation_zombie_die[0] / 15 > 7){
                         zombie_position.w =140;
-                        zombie_test.w = 140;
+
                     }
-                    if (animation_zombie_die / 15 > 11){
-                        animation_zombie_die = 0;
+                    if (animation_zombie_die[0] / 15 > 11){
+                        animation_zombie_die[0] = 0;
                         zombie_position.x = 9999;
-                        zombie_test.w = 110;
+
+                    }
+                    if (animation_zombie_die[1] / 15 > 7){
+                        zombie_position1.w =140;
+
+                    }
+                    if (animation_zombie_die[1] / 15 > 11){
+                        animation_zombie_die[1] = 0;
+                        zombie_position1.x = 9999;
+
                     }
 
                     if (animation_player/2 > 11)
@@ -922,7 +934,7 @@ int main(int first, char* array[] ){
                     }
 
 
-                    if (!checkCollision( zombie_position, player_position ) && zombie_alive1){ //zombie operation check attack if zombie crash player they will do attack animation
+                    if (!checkCollision( zombie_position, player_position ) && alive[0]){ //zombie operation check attack if zombie crash player they will do attack animation
                         zombie_position.x -= 1.1;
                         zombie = zombie_texture;
                         zombie_status1 = 1;
@@ -941,7 +953,7 @@ int main(int first, char* array[] ){
                         if (checkCollision(bl_position, zombie_position1)){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
                             bl_position.x = 9999;
-                            count_zombie++;
+                            check_bullet[0]++;
                             printf("hit");
                         }
                         else{
@@ -987,36 +999,42 @@ int main(int first, char* array[] ){
                     }
                     if (count_zombie == 2){
                         zombie_position.w = 110;
-                        zombie_alive1 = false;
+                        alive[0] = false;
                         count_zombie = 0;
                     }
-                    if (zombie_alive1 && checkCollision( zombie_position, player_position)){
+                    if (check_bullet[0] == 2){
+                        zombie_position1.w = 110;
+                        alive[1] = false;
+                        check_bullet[0] = 0;
+                    }
+
+                    if (alive[0] && checkCollision( zombie_position, player_position)){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/15], &zombie_position);
                         zombie_status1 = 0;
                     }
-                    else if (!zombie_alive1){
-                        animation_zombie_die++;
+                    else if (!alive[0]){
+                        animation_zombie_die[0]++;
                         zombie = zombie_die_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die/15], &zombie_position);//
+                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die[0]/15], &zombie_position);//
                     }
 
 
-                    if (!checkCollision(zombie_position1, player_position)){
+                    if (!checkCollision(zombie_position1, player_position) && alive[1]){
                         zombie_position1.x -= 4;
                         zombie = zombie_texture;
                         zombie_status3 = 1;
                         SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/19], &zombie_position1);
                     }
-                    else if (checkCollision(zombie_position1, player_position) && zombie_alive1){
+                    else if (checkCollision(zombie_position1, player_position) && alive[1]){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position1);
                         zombie_status3 = 0;
                     }
-                    else if (!zombie_alive1){
-                        animation_zombie_die++;
+                    else if (!alive[1]){
+                        animation_zombie_die[1]++;
                         zombie = zombie_die_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die/15], &zombie_position1);//
+                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die[1]/15], &zombie_position1);//
                     }
 
 
