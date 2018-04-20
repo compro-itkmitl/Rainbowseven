@@ -45,9 +45,12 @@ SDL_Texture* player;
 SDL_Renderer* grenderer;
 SDL_Surface* santabar_surface;
 SDL_Texture* santabar_texture;
+SDL_Surface* zombi_surface;
+SDL_Texture* zombi_texture;
 SDL_Window* window = NULL;
 SDL_Surface* screensurface = NULL;
-SDL_Rect santabar_position = {200,130, 300, 300};
+SDL_Rect santabar_position = {210,130, 300, 300};
+SDL_Rect zombi_position = {1510, 105, 300, 300};
 SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
 SDL_Rect boss_position = {1350, 165, 370, 550};
 SDL_Rect player_position = {670, 370, 90, 140};
@@ -614,6 +617,13 @@ bool loadmedia(){
     }
     santabar_texture = SDL_CreateTextureFromSurface(grenderer, santabar_surface);
 
+    zombi_surface = IMG_Load("../graphic/zombi_bar.png");
+    if (zombi_surface == NULL)
+    {
+        printf("load zombi_bar.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    zombi_texture = SDL_CreateTextureFromSurface(grenderer, zombi_surface);
     setanimation();
     return success;
 
@@ -768,6 +778,7 @@ int main(int first, char* array[] ){
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
                     SDL_RenderCopy(grenderer, santabar_texture, NULL, &santabar_position);
+                    SDL_RenderCopy(grenderer, zombi_texture, NULL, &zombi_position);
                     animation_zombie++;
                     animation_boss++;
                     if (checkCollision(player_position, airdrop)){
