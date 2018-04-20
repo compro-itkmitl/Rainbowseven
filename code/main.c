@@ -53,14 +53,14 @@ SDL_Rect santabar_position = {210,130, 300, 300};
 SDL_Rect zombi_position = {1510, 105, 300, 300};
 SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
 SDL_Rect boss_position = {1350, 165, 370, 550};
-SDL_Rect player_position = {670, 370, 90, 140};
+SDL_Rect player_position = {200, 570, 90, 140};
 SDL_Rect zombie_position = {1300, 570, 90, 140};
 SDL_Rect zombie_position1 = {1900, 570, 90, 140};
 SDL_Rect zombie_position2 = {1200, 570, 90, 140};
 SDL_Rect zombie_position3 = {2150, 570, 90, 140};
 SDL_Rect zombie_position4 = {2500, 570, 90, 140};
 SDL_Rect zombie_test = {1300, 570, 110, 140};
-SDL_Rect player1_position = {670, 510, 150, 190};
+SDL_Rect player1_position = {200, 510, 150, 190};
 SDL_Rect box1 = {720, 380, 200, 100};
 SDL_Rect box2 = {930, 260, 300, 100};
 SDL_Rect airdrop = {1000,300, 130, 80};
@@ -733,6 +733,7 @@ int main(int first, char* array[] ){
                         if (shoot == 0 && check_jump == false){
                            shoot = 1;
                            bl_position.x = player_position.x + 130;
+                           printf("ink");
                         }
                         else if (shoot == 1 && check_jump == false){
                             shoot = 2;
@@ -856,6 +857,24 @@ int main(int first, char* array[] ){
                         zombie_position1.x = 9999;
 
                     }
+                    if (animation_zombie_die[2] / 15 > 7){
+                        zombie_position3.w =140;
+
+                    }
+                    if (animation_zombie_die[2] / 15 > 11){
+                        animation_zombie_die[2] = 0;
+                        zombie_position3.x = 9999;
+
+                    }
+                    if (animation_zombie_die[3] / 15 > 7){
+                        zombie_position4.w =140;
+
+                    }
+                    if (animation_zombie_die[3] / 15 > 11){
+                        animation_zombie_die[3] = 0;
+                        zombie_position4.x = 9999;
+
+                    }
 
                     if (animation_player/2 > 11)
                     {
@@ -941,8 +960,8 @@ int main(int first, char* array[] ){
                         SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/15], &zombie_position);
 
                     }
-                    if (checkCollision(bl_position, zombie_position) || checkCollision(bl_position, zombie_position1)){
-                        if (checkCollision(bl_position, zombie_position)){
+                    /*if (checkCollision(bl_position, zombie_position) || checkCollision(bl_position, zombie_position1) || checkCollision(bl_position, zombie_position3)){
+                        if (checkCollision(bl_position, zombie_position) && alive[0]){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
                             bl_position.x = 9999;
                             count_zombie++;
@@ -950,62 +969,184 @@ int main(int first, char* array[] ){
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position);
                         }
-                        if (checkCollision(bl_position, zombie_position1)){
+                        if (checkCollision(bl_position, zombie_position1) && alive[1]){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
                             bl_position.x = 9999;
                             check_bullet[0]++;
-                            printf("hit");
+
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position);
+                        }
+                        if (checkCollision(bl_position, zombie_position3)&& alive[2]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position);
+                            bl_position.x = 9999;
+                            check_bullet[1]++;
+
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position);
                         }
 
 
-                    }
-                    if (checkCollision(bl_position1, zombie_position)){
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
-                        bl_position1.x = 9999;
-                        count_zombie++;
-                    }
-                    else{
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
+                    }*/
+                    if (checkCollision(bl_position1, zombie_position) || checkCollision(bl_position1, zombie_position1) || checkCollision(bl_position1, zombie_position3) || checkCollision(bl_position1, zombie_position4)){
+                        if (checkCollision(bl_position1, zombie_position) && alive[0]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
+                            bl_position1.x = 9999;
+                            count_zombie++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
+                        }
+                        if (checkCollision(bl_position1, zombie_position1) && alive[1]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
+                            bl_position1.x = 9999;
+                            check_bullet[0]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
+                        }
+                        if (checkCollision(bl_position1, zombie_position3) && alive[2]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
+                            bl_position1.x = 9999;
+                            check_bullet[1]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
+                        }
+                        if (checkCollision(bl_position1, zombie_position4) && alive[3]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
+                            bl_position1.x = 9999;
+                            check_bullet[2]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
+                        }
                     }
 
-                    if (checkCollision(bl_position2, zombie_position)){
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
-                        bl_position2.x = 9999;
-                        count_zombie++;
-                    }
-                    else{
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
+                    if (checkCollision(bl_position2, zombie_position) || checkCollision(bl_position2, zombie_position1)|| checkCollision(bl_position2, zombie_position3)|| checkCollision(bl_position2, zombie_position4)){
+                        if (checkCollision(bl_position2, zombie_position) && alive[0]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
+                            bl_position2.x = 9999;
+                            count_zombie++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
+                        }
+                        if (checkCollision(bl_position2, zombie_position1) && alive[1]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
+                            bl_position2.x = 9999;
+                            check_bullet[0]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
+                        }
+                         if (checkCollision(bl_position2, zombie_position3) && alive[2]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
+                            bl_position2.x = 9999;
+                            check_bullet[1]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
+                        }
+                          if (checkCollision(bl_position2, zombie_position4) && alive[3]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
+                            bl_position2.x = 9999;
+                            check_bullet[2]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
+                        }
                     }
 
-                    if (checkCollision(bl_position3, zombie_position)){
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
-                        bl_position3.x = 9999;
-                        count_zombie++;
+                    if (checkCollision(bl_position3, zombie_position) || checkCollision(bl_position3, zombie_position1) || checkCollision(bl_position3, zombie_position3)|| checkCollision(bl_position3, zombie_position4)){
+                        if (checkCollision(bl_position3, zombie_position)&& alive[0]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
+                            bl_position3.x = 9999;
+                            count_zombie++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
+                        }
+                        if (checkCollision(bl_position3, zombie_position1) && alive[1]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
+                            bl_position3.x = 9999;
+                            check_bullet[0]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
+                        }
+                         if (checkCollision(bl_position3, zombie_position3) && alive[2]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
+                            bl_position3.x = 9999;
+                            check_bullet[1]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
+                        }
+                        if (checkCollision(bl_position3, zombie_position4) && alive[3]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
+                            bl_position3.x = 9999;
+                            check_bullet[2]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
+                        }
                     }
-                    else{
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
+                    if (checkCollision(bl_position4, zombie_position)|| checkCollision(bl_position4, zombie_position1) || checkCollision(bl_position4, zombie_position3)|| checkCollision(bl_position4, zombie_position4)){
+                        if (checkCollision(bl_position4, zombie_position) && alive[0]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
+                            bl_position4.x = 9999;
+                            count_zombie++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+                        }
+                        if (checkCollision(bl_position4, zombie_position1) && alive[1]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
+                            bl_position4.x = 9999;
+                            check_bullet[0]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+                        }
+                        if (checkCollision(bl_position4, zombie_position3) && alive[2]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
+                            bl_position4.x = 9999;
+                            check_bullet[1]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+                        }
+                        if (checkCollision(bl_position4, zombie_position4) && alive[3]){
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
+                            bl_position4.x = 9999;
+                            check_bullet[2]++;
+                        }
+                        else{
+                            SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+                        }
                     }
-
-                    if (checkCollision(bl_position4, zombie_position)){
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
-                        bl_position4.x = 9999;
-                        count_zombie++;
-                    }
-                    else{
-                        SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
-                    }
-                    if (count_zombie == 2){
+                    if (count_zombie == 5){
                         zombie_position.w = 110;
                         alive[0] = false;
                         count_zombie = 0;
                     }
-                    if (check_bullet[0] == 2){
+                    if (check_bullet[0] == 5){
                         zombie_position1.w = 110;
                         alive[1] = false;
                         check_bullet[0] = 0;
+                    }
+                    if (check_bullet[1] == 5){
+                        zombie_position3.w = 110;
+                        alive[2] = false;
+                        check_bullet[1] = 0;
+                    }
+                    if (check_bullet[2] == 5){
+                        zombie_position4.w = 110;
+                        alive[3] = false;
+                        check_bullet[2] = 0;
                     }
 
                     if (alive[0] && checkCollision( zombie_position, player_position)){
@@ -1039,7 +1180,7 @@ int main(int first, char* array[] ){
 
 
 
-                    /*if (!checkCollision( zombie_position3, player_position )){ //zombie operation check attack if zombie crash player they will do attack animation
+                    if (!checkCollision( zombie_position3, player_position) && alive[2] ){ //zombie operation check attack if zombie crash player they will do attack animation
                         zombie_position3.x -= 4;
                         zombie = zombie_texture;
                         zombie_status3 = 1;
@@ -1047,13 +1188,20 @@ int main(int first, char* array[] ){
 
 
                     }
-                    else{
+
+                    else if (checkCollision(zombie_position3, player_position) && alive[2]){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/19], &zombie_position3);
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position3);
                         zombie_status3 = 0;
                     }
+                    else if (!alive[2]){
+                        animation_zombie_die[2]++;
+                        zombie = zombie_die_texture;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die[2]/15], &zombie_position3);//
+                    }
 
-                    if (!checkCollision( zombie_position4, player_position )){ //zombie operation check attack if zombie crash player they will do attack animation
+
+                    if (!checkCollision( zombie_position4, player_position) && alive[3] ){ //zombie operation check attack if zombie crash player they will do attack animation
                         zombie_position4.x -= 2.5;
                         zombie = zombie_texture;
                         zombie_status3 = 1;
@@ -1061,12 +1209,16 @@ int main(int first, char* array[] ){
 
 
                     }
-                    else{
+                    else if (checkCollision(zombie_position4, player_position) && alive[3]){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position4);
                         zombie_status3 = 0;
-
-                    }*/
+                    }
+                    else if (!alive[3]){
+                        animation_zombie_die[3]++;
+                        zombie = zombie_die_texture;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die[3]/15], &zombie_position4);//
+                    }
 
                     if (airdrop.y > 320){
                         airdrop.y = 320;
