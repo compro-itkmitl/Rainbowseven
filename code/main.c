@@ -47,8 +47,47 @@ SDL_Surface* santabar_surface;
 SDL_Texture* santabar_texture;
 SDL_Surface* zombi_surface;
 SDL_Texture* zombi_texture;
+SDL_Surface* healtsanta1_surface;
+SDL_Texture* healtsanta1_texture;
+SDL_Surface* healtsanta2_surface;
+SDL_Texture* healtsanta2_texture;
+SDL_Surface* healtsanta3_surface;
+SDL_Texture* healtsanta3_texture;
+SDL_Surface* healtsanta4_surface;
+SDL_Texture* healtsanta4_texture;
+SDL_Surface* healtsanta5_surface;
+SDL_Texture* healtsanta5_texture;
+SDL_Surface* healtsanta6_surface;
+SDL_Texture* healtsanta6_texture;
+
+SDL_Surface* healtzombi1_surface;
+SDL_Texture* healtzombi1_texture;
+SDL_Surface* healtzombi2_surface;
+SDL_Texture* healtzombi2_texture;
+SDL_Surface* healtzombi3_surface;
+SDL_Texture* healtzombi3_texture;
+SDL_Surface* healtzombi4_surface;
+SDL_Texture* healtzombi4_texture;
+SDL_Surface* healtzombi5_surface;
+SDL_Texture* healtzombi5_texture;
+SDL_Surface* healtzombi6_surface;
+SDL_Texture* healtzombi6_texture;
+
 SDL_Window* window = NULL;
 SDL_Surface* screensurface = NULL;
+SDL_Rect healtsanta1_position = {390, 150,400, 40};
+SDL_Rect healtsanta2_position = {390, 150,400, 40};
+SDL_Rect healtsanta3_position = {390, 150,400, 40};
+SDL_Rect healtsanta4_position = {390, 150,400, 40};
+SDL_Rect healtsanta5_position = {390, 150,400, 40};
+SDL_Rect healtsanta6_position = {390, 150,400, 40};
+
+SDL_Rect healtzombi1_position = {1110, 150, 400, 40};
+SDL_Rect healtzombi2_position = {1110, 150, 400, 40};
+SDL_Rect healtzombi3_position = {1110, 150, 400, 40};
+SDL_Rect healtzombi4_position = {1110, 150, 400, 40};
+SDL_Rect healtzombi5_position = {1110, 150, 400, 40};
+SDL_Rect healtzombi6_position = {1110, 150, 400, 40};
 SDL_Rect santabar_position = {210,130, 300, 300};
 SDL_Rect zombi_position = {1510, 105, 300, 300};
 SDL_Rect start_position = {1920/2-200/2, 1080/2-100/2, 200, 100};
@@ -627,6 +666,104 @@ bool loadmedia(){
         success = false;
     }
     zombi_texture = SDL_CreateTextureFromSurface(grenderer, zombi_surface);
+
+    healtsanta1_surface = IMG_Load("../graphic/healt_bar1.png");
+    if (healtsanta1_surface == NULL)
+    {
+        printf("load healt_bar1.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta1_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta1_surface);
+
+    healtsanta2_surface = IMG_Load("../graphic/healt_bar2.png");
+    if (healtsanta2_surface == NULL)
+    {
+        printf("load healt_bar2.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta2_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta2_surface);
+
+    healtsanta3_surface = IMG_Load("../graphic/healt_bar3.png");
+    if (healtsanta3_surface == NULL)
+    {
+        printf("load healt_bar3.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta3_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta3_surface);
+
+    healtsanta4_surface = IMG_Load("../graphic/healt_bar4.png");
+    if (healtsanta4_surface == NULL)
+    {
+        printf("load healt_bar4.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta4_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta4_surface);
+
+    healtsanta5_surface = IMG_Load("../graphic/healt_bar5.png");
+    if (healtsanta5_surface == NULL)
+    {
+        printf("load healt_bar5.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta5_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta5_surface);
+
+    healtsanta6_surface = IMG_Load("../graphic/healt_bar6.png");
+    if (healtsanta6_surface == NULL)
+    {
+        printf("load healt_bar6.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtsanta6_texture = SDL_CreateTextureFromSurface(grenderer, healtsanta6_surface);
+
+
+    healtzombi1_surface = IMG_Load("../graphic/healtzombi_bar1.png");
+    if (healtzombi1_surface == NULL)
+    {
+        printf("load healtzombi_bar1.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi1_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi1_surface);
+
+    healtzombi2_surface = IMG_Load("../graphic/healtzombi_bar2.png");
+    if (healtzombi2_surface == NULL)
+    {
+        printf("load healtzombi_bar2.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi2_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi2_surface);
+
+    healtzombi3_surface = IMG_Load("../graphic/healtzombi_bar3.png");
+    if (healtzombi3_surface == NULL)
+    {
+        printf("load healtzombi_bar3.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi3_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi3_surface);
+
+    healtzombi4_surface = IMG_Load("../graphic/healtzombi_bar4.png");
+    if (healtzombi4_surface == NULL)
+    {
+        printf("load healtzombi_bar4.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi4_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi4_surface);
+
+    healtzombi5_surface = IMG_Load("../graphic/healtzombi_bar5.png");
+    if (healtzombi5_surface == NULL)
+    {
+        printf("load healtzombi_bar5.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi5_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi5_surface);
+
+    healtzombi6_surface = IMG_Load("../graphic/healtzombi_bar6.png");
+    if (healtzombi6_surface == NULL)
+    {
+        printf("load healtzombi_bar6.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    healtzombi6_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi6_surface);
+
     setanimation();
     return success;
 
@@ -783,6 +920,8 @@ int main(int first, char* array[] ){
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
                     SDL_RenderCopy(grenderer, santabar_texture, NULL, &santabar_position);
                     SDL_RenderCopy(grenderer, zombi_texture, NULL, &zombi_position);
+                    SDL_RenderCopy(grenderer, healtsanta1_texture, NULL, &healtsanta1_position);
+                    SDL_RenderCopy(grenderer, healtzombi1_texture, NULL, &healtzombi1_position);
                     animation_zombie++;
                     animation_boss++;
                     if (checkCollision(player_position, airdrop)){
