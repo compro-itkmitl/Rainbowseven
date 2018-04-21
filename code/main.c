@@ -120,6 +120,8 @@ SDL_Rect bl_position4 = {99999, 500, 30, 30};
 SDL_Texture* display;
 SDL_Texture* player;
 int shoot = 0;
+int counthealt = 0;
+int counthealt2 = 0;
 bool game_menu = true;
 bool ingame = false;
 bool alive[5] = {true,true,true,true,true};
@@ -920,8 +922,6 @@ int main(int first, char* array[] ){
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
                     SDL_RenderCopy(grenderer, santabar_texture, NULL, &santabar_position);
                     SDL_RenderCopy(grenderer, zombi_texture, NULL, &zombi_position);
-                    SDL_RenderCopy(grenderer, healtsanta1_texture, NULL, &healtsanta1_position);
-                    SDL_RenderCopy(grenderer, healtzombi1_texture, NULL, &healtzombi1_position);
                     animation_zombie++;
                     animation_boss++;
                     if (checkCollision(player_position, airdrop)){
@@ -972,7 +972,6 @@ int main(int first, char* array[] ){
                         bl_position1.x += 8;
                         bl_position2.x += 8;
                         bl_position3.x += 8;
-
                         bl_position4.x += 8;
                     }
                     if (shoot == 5){
@@ -1333,6 +1332,7 @@ int main(int first, char* array[] ){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/15], &zombie_position);
                         zombie_status1 = 0;
+                        counthealt++;
                     }
                     else if (!alive[0]){
                         animation_zombie_die[0]++;
@@ -1351,6 +1351,7 @@ int main(int first, char* array[] ){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position1);
                         zombie_status3 = 0;
+                        counthealt++;
                     }
                     else if (!alive[1]){
                         animation_zombie_die[1]++;
@@ -1365,14 +1366,13 @@ int main(int first, char* array[] ){
                         zombie = zombie_texture;
                         zombie_status3 = 1;
                         SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/19], &zombie_position3);
-
-
                     }
 
                     else if (checkCollision(zombie_position3, player_position) && alive[2]){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position3);
                         zombie_status3 = 0;
+                        counthealt++;
                     }
                     else if (!alive[2]){
                         animation_zombie_die[2]++;
@@ -1386,28 +1386,62 @@ int main(int first, char* array[] ){
                         zombie = zombie_texture;
                         zombie_status3 = 1;
                         SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/17], &zombie_position4);
-
-
                     }
                     else if (checkCollision(zombie_position4, player_position) && alive[3]){
                         zombie = zombieattack_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position4);
                         zombie_status3 = 0;
+                        counthealt++;
                     }
                     else if (!alive[3]){
                         animation_zombie_die[3]++;
                         zombie = zombie_die_texture;
                         SDL_RenderCopy(grenderer, zombie, &zombie_die[animation_zombie_die[3]/15], &zombie_position4);//
                     }
+                    if(counthealt==0){
+                        SDL_RenderCopy(grenderer, healtsanta1_texture, NULL, &healtsanta1_position);
+                    }
+                    if(counthealt>0 && counthealt<160){
+                        SDL_RenderCopy(grenderer, healtsanta2_texture, NULL, &healtsanta1_position);
+                    }
+                    if(counthealt>160 && counthealt<240){
+                        SDL_RenderCopy(grenderer, healtsanta3_texture, NULL, &healtsanta1_position);
+                    }
+                    if(counthealt>240 && counthealt<320){
+                        SDL_RenderCopy(grenderer, healtsanta4_texture, NULL, &healtsanta1_position);
+                    }
+                    if(counthealt>320 && counthealt<400){
+                        SDL_RenderCopy(grenderer, healtsanta5_texture, NULL, &healtsanta1_position);
+                    }
+                    if(counthealt>400){
+                        SDL_RenderCopy(grenderer, healtsanta6_texture, NULL, &healtsanta1_position);
+                    }
+
+                    if(check_bullet[3] >= 00 && check_bullet[3] < 10){
+                        SDL_RenderCopy(grenderer, healtzombi1_texture, NULL, &healtzombi1_position);
+                    }
+                    if(check_bullet[3] >= 10 && check_bullet[3] < 20){
+                        SDL_RenderCopy(grenderer, healtzombi2_texture, NULL, &healtzombi1_position);
+                    }
+                    if(check_bullet[3] >= 20 && check_bullet[3] < 30){
+                        SDL_RenderCopy(grenderer, healtzombi3_texture, NULL, &healtzombi1_position);
+                    }
+                    if(check_bullet[3] >= 30 && check_bullet[3] < 40){
+                        SDL_RenderCopy(grenderer, healtzombi4_texture, NULL, &healtzombi1_position);
+                    }
+                    if(check_bullet[3] >= 40 && check_bullet[3] < 50){
+                        SDL_RenderCopy(grenderer, healtzombi5_texture, NULL, &healtzombi1_position);
+                    }
+                    if(check_bullet[3] >= 50 && check_bullet[3] < 60){
+                        SDL_RenderCopy(grenderer, healtzombi6_texture, NULL, &healtzombi1_position);
+                    }
+
+
 
                     if (airdrop.y > 320){
                         airdrop.y = 320;
                         speedair = 1;
                     }
-
-
-
-
                     if (player_position.x > 1600){
                         player_position.x = 100;
                     }
