@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <SDL_mixer.h>
 
 
 const int SCREEN_WIDTH = 1920;
@@ -119,6 +120,10 @@ SDL_Rect bl_position3 = {99999, 500, 30, 30};
 SDL_Rect bl_position4 = {99999, 500, 30, 30};
 SDL_Texture* display;
 SDL_Texture* player;
+Mix_Music *music = NULL;
+Mix_Chunk *shoot_sound = NULL;
+Mix_Chunk *walk = NULL;
+Mix_Chunk *hit = NULL;
 int shoot = 0;
 int counthealt = 0;
 int counthealt2 = 0;
@@ -127,11 +132,12 @@ bool ingame = false;
 bool alive[5] = {true,true,true,true,true};
 int check_bullet[5] = {0,0,0,0,0};
 int animation_zombie_die[5] = {0,0,0,0,0};
+int kuy = 0;
 
 
 bool init(){
     bool success = true;
-    if( SDL_Init( SDL_INIT_VIDEO ) < 0 ){
+    if( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0 ){
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
         success = false;
     }
@@ -147,6 +153,10 @@ bool init(){
                 printf("Error : %s\n", SDL_GetError());
                 success = false;
             }
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+    {
+        success = false;
+    }
         }
     }
     return success;
@@ -766,6 +776,32 @@ bool loadmedia(){
     }
     healtzombi6_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi6_surface);
 
+    music = Mix_LoadMUS("bgm.mp3");
+    if (music == NULL)
+    {
+        //printf("load music error");
+        success = false;
+    }
+    shoot_sound = Mix_LoadWAV("shoot.wav");
+    if (shoot_sound == NULL)
+    {
+
+        success = false;
+    }
+
+    walk = Mix_LoadWAV("walk.wav");
+    if (walk == NULL)
+    {
+
+        success = false;
+    }
+
+    hit = Mix_LoadWAV("hit.wav");
+    if (hit == NULL)
+    {
+
+        success = false;
+    }
     setanimation();
     return success;
 
@@ -853,6 +889,7 @@ int main(int first, char* array[] ){
                         player_position.x+=8;
                         player1_position.x += 6;
                         bl_position.x += 8;
+
                     }
 
                     else if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_a){
@@ -862,6 +899,7 @@ int main(int first, char* array[] ){
                         bl_position.x -= 5;
 
 
+
                     }
 
                     else if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_w && check_jump == false){
@@ -869,24 +907,29 @@ int main(int first, char* array[] ){
                         check_jump = true;
                     }
                     else if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_k){
+                        Mix_PlayChannel(-1, shoot_sound, 0);
                         if (shoot == 0 && check_jump == false){
                            shoot = 1;
                            bl_position.x = player_position.x + 130;
-                           printf("ink");
+
                         }
                         else if (shoot == 1 && check_jump == false){
+
                             shoot = 2;
                             bl_position1.x = player_position.x + 130;
                         }
                         else if (shoot == 2 && check_jump == false){
+
                             shoot = 3;
                             bl_position2.x = player_position.x + 130;
                         }
                         else if (shoot == 3 && check_jump == false){
+
                             shoot = 4;
                             bl_position3.x = player_position.x + 130;
                         }
                         else if (shoot == 4 && check_jump == false){
+
                             shoot = 5;
                             bl_position4.x = player_position.x + 130;
                         }
@@ -894,6 +937,7 @@ int main(int first, char* array[] ){
                     else if(event.type == SDL_KEYUP){
                         animation_player = 0;
                     }
+
 
 
                 }
@@ -905,7 +949,9 @@ int main(int first, char* array[] ){
 
                 }
                 else if(ingame){
-
+                    if (!Mix_PlayingMusic()){
+                        Mix_PlayMusic(music,-1);
+                    }
                     time++;
                     speed += gravity;
                     speedair += gravity_air;
@@ -1141,6 +1187,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             count_zombie++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
@@ -1149,6 +1196,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             check_bullet[0]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
@@ -1157,6 +1205,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             check_bullet[1]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
@@ -1165,6 +1214,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             check_bullet[2]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
@@ -1173,6 +1223,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             check_bullet[3]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
@@ -1184,6 +1235,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
                             bl_position2.x = 9999;
                             count_zombie++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
@@ -1192,6 +1244,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
                             bl_position2.x = 9999;
                             check_bullet[0]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
@@ -1200,6 +1253,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
                             bl_position2.x = 9999;
                             check_bullet[1]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
@@ -1208,6 +1262,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
                             bl_position2.x = 9999;
                             check_bullet[2]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
@@ -1216,6 +1271,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position2);
                             bl_position2.x = 9999;
                             check_bullet[3]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
@@ -1227,6 +1283,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
                             bl_position3.x = 9999;
                             count_zombie++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
@@ -1235,6 +1292,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
                             bl_position3.x = 9999;
                             check_bullet[0]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
@@ -1243,6 +1301,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
                             bl_position3.x = 9999;
                             check_bullet[1]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
@@ -1251,6 +1310,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
                             bl_position3.x = 9999;
                             check_bullet[2]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
@@ -1259,6 +1319,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position3);
                             bl_position3.x = 9999;
                             check_bullet[3]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
@@ -1270,6 +1331,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
                             bl_position4.x = 9999;
                             count_zombie++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
@@ -1278,6 +1340,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
                             bl_position4.x = 9999;
                             check_bullet[0]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
@@ -1286,6 +1349,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
                             bl_position4.x = 9999;
                             check_bullet[1]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
@@ -1294,6 +1358,7 @@ int main(int first, char* array[] ){
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position4);
                             bl_position4.x = 9999;
                             check_bullet[2]++;
+                            Mix_PlayChannel(-1, hit, 0);
                         }
                         else{
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
@@ -1473,6 +1538,9 @@ int main(int first, char* array[] ){
                         SDL_RenderCopy(grenderer, zombie_texture, &zombie_animation[animation_zombie/15], &zombie_position1);
                         zombie1 = 0;
                     }
+                    /*if (animation_player % 2 == 0){
+                        Mix_PlayChannel(-1, walk, 0);
+                    }*/
 
 
 
@@ -1483,6 +1551,10 @@ int main(int first, char* array[] ){
         }
     }
     SDL_DestroyWindow( window );
+    Mix_FreeChunk(shoot_sound);
+    Mix_FreeChunk(walk);
+    Mix_FreeMusic(music);
+    Mix_Quit();
     SDL_Quit();
     return 0;
 }
