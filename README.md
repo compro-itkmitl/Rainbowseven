@@ -14,7 +14,6 @@ https://www.libsdl.org/
     http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php
 <img src="https://upload.wikimedia.org/wikipedia/fr/2/26/SDL_logo.png" width="300px">
 
-
 # ❓ How To Play Rainbowseven
 สำหรับวิธีการเล่นนั้นเมื่อเราเปิดเกมมาแล้วนั้นจะพบกับหน้าเมนู ถ้าต้องการที่จะเล่น สามารถกด Enter เพื่อเข้าเล่นเกม
 
@@ -44,6 +43,11 @@ https://www.libsdl.org/
 |<img src="https://scontent.fbkk1-3.fna.fbcdn.net/v/t1.0-9/18156901_1456506974417122_2622418456792260905_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=486313cf448a30180b215a0fa841bb41&oe=5B59A1FB" width="100px">|Kavepol|Khunsri|[@Supermalonz](https://github.com/Supermalonz)|60070003|
 |<img src="https://scontent.fbkk1-3.fna.fbcdn.net/v/t1.0-9/10806376_942596332434956_7575925399337993121_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=9bfdf7e77c8f528e20f61109e78c0a59&oe=5B714556" width="100px">|Chayakorn|Thiankao|[@chayakornthiankhao](https://github.com/chayakornthiankhao)|60070013|
 |<img src="https://scontent.fbkk1-2.fna.fbcdn.net/v/t1.0-9/23621411_1353041484824274_1191224248939719052_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=20d19416dca74cfb0901cacf99a24806&oe=5B66378E" width="100px">|Naruthep| Chaiyasing|[@Marknaruthep](https://github.com/Marknaruthep)|600700038|
+
+# 🎮Special Thanks
+*https://www.gameart2d.com
+
+*https://kenney.nl/assets
 
 # 👨‍💻Assistant Teachers
 |ผศ. ดร. กิติ์สุชาติ พสุภา|ผศ. ดร. ปานวิทย์ ธุวะนุติ|
