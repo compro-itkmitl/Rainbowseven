@@ -998,12 +998,7 @@ int main(int first, char* array[] ){
                     SDL_RenderCopy(grenderer, background_texture, NULL, NULL);
 
                 }
-                else if (!ingame && gameover){
-                    SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
-                }
-                else if (!ingame & !gameover){
-                    SDL_RenderCopy(grenderer, gameover_texture, NULL, NULL);
-                }
+
                 else if(ingame){
                     if (!Mix_PlayingMusic()){
                         Mix_PlayMusic(music,-1);
@@ -1577,8 +1572,7 @@ int main(int first, char* array[] ){
                     if(counthealt>=40){
                         SDL_RenderCopy(grenderer, healtsanta6_texture, NULL, &healtsanta1_position);
                         SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
-                        ingame = false;
-                        gameover = true;
+
                     }
 
                     if(check_bullet[3] >= 00 && check_bullet[3] < 10){
@@ -1598,8 +1592,7 @@ int main(int first, char* array[] ){
                     }
                     if(check_bullet[3] >= 50 && check_bullet[3] < 60){
                         SDL_RenderCopy(grenderer, healtzombi6_texture, NULL, &healtzombi1_position);
-                        gameover = false;
-                        ingame = false;
+                        SDL_RenderCopy(grenderer, gameover_texture, NULL, NULL);
                     }
 
 
