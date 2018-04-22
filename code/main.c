@@ -918,7 +918,7 @@ int main(int first, char* array[] ){
             bool status_player = 0;
             bool zombie_status1 = 0,zombie_status2 = 0, zombie_status3 = 0,zombie_status4 = 0, zombie_status5 = 0;
             int time,ground = 570,pad = 0, count_zombie = 0, count_zombie1 = 0;
-            float gravity = 0.115
+            float gravity = 0.125
              ,speed,speedair,gravity_air = 0.01;
             display = background_texture;
             int animation_player = 0, animation_zombie = 0, animation_boss = 0;
@@ -930,7 +930,7 @@ int main(int first, char* array[] ){
                         quit = 1;
                     }
                     if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN){
-                        display = background_gametexture;
+                        //display = background_gametexture;
                         game_menu = false;
                         ingame = true;
                     }
@@ -997,6 +997,12 @@ int main(int first, char* array[] ){
                 if(game_menu){
                     SDL_RenderCopy(grenderer, background_texture, NULL, NULL);
 
+                }
+                else if (!ingame && gameover){
+                    SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
+                }
+                else if (!ingame & !gameover){
+                    SDL_RenderCopy(grenderer, gameover_texture, NULL, NULL);
                 }
                 else if(ingame){
                     if (!Mix_PlayingMusic()){
@@ -1571,6 +1577,8 @@ int main(int first, char* array[] ){
                     if(counthealt>=40){
                         SDL_RenderCopy(grenderer, healtsanta6_texture, NULL, &healtsanta1_position);
                         SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
+                        ingame = false;
+                        gameover = true;
                     }
 
                     if(check_bullet[3] >= 00 && check_bullet[3] < 10){
@@ -1590,7 +1598,8 @@ int main(int first, char* array[] ){
                     }
                     if(check_bullet[3] >= 50 && check_bullet[3] < 60){
                         SDL_RenderCopy(grenderer, healtzombi6_texture, NULL, &healtzombi1_position);
-                        SDL_RenderCopy(grenderer, gameover_texture, NULL, NULL);
+                        gameover = false;
+                        ingame = false;
                     }
 
 
