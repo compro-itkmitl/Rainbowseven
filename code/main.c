@@ -1028,21 +1028,21 @@ int main(int first, char* array[] ){
                     animation_zombie++;
                     animation_boss++;
                     if (bl_boss1.x < 0 ){
-                        bl_boss1.x = 1200;
+                        bl_boss1.x = 2500;
                     }
                     if (bl_boss2.x < 0){
-                        bl_boss2.x = 1200;
+                        bl_boss2.x = 2500;
                     }
                      if (checkCollision(player_position, bl_boss2)){
                         SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[0], &bl_boss2);
-                        bl_boss2.x = 1200;
-                        counthealt += 10;
+                        bl_boss2.x = 2400;
+                        counthealt += 2;
                         Mix_PlayChannel(-1, hit, 0);
                     }
                     if (checkCollision(player_position, bl_boss1)){
                         SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[0], &bl_boss1);
-                        bl_boss1.x = 1200;
-                        counthealt += 10;
+                        bl_boss1.x = 2400;
+                        counthealt += 2;
                         Mix_PlayChannel(-1, hit, 0);
                     }
                     if (checkCollision(player_position, airdrop)){
