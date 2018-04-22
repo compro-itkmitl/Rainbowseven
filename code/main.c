@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
 #include <SDL_mixer.h>
 
 
@@ -87,6 +88,9 @@ SDL_Rect healtsanta4_position = {390, 150,400, 40};
 SDL_Rect healtsanta5_position = {390, 150,400, 40};
 SDL_Rect healtsanta6_position = {390, 150,400, 40};
 
+SDL_Surface* bl_boss_surface;
+SDL_Texture* bl_boss_texture;
+
 SDL_Rect healtzombi1_position = {1110, 150, 400, 40};
 SDL_Rect healtzombi2_position = {1110, 150, 400, 40};
 SDL_Rect healtzombi3_position = {1110, 150, 400, 40};
@@ -110,6 +114,7 @@ SDL_Rect box2 = {930, 260, 300, 100};
 SDL_Rect airdrop = {1000,300, 130, 80};
 SDL_Rect box3 = {1080, 120, 310, 100};
 SDL_Rect bl_animation[2];
+SDL_Rect bl_boss_animation[2];
 SDL_Rect gun_animation[15];
 SDL_Rect player_animation[13];
 SDL_Rect boss_animation[15];
@@ -122,6 +127,12 @@ SDL_Rect bl_position1 = {99999, 500, 30, 30};
 SDL_Rect bl_position2 = {99999, 500, 30, 30};
 SDL_Rect bl_position3 = {99999, 500, 30, 30};
 SDL_Rect bl_position4 = {99999, 500, 30, 30};
+SDL_Rect bl_boss1 = {1200, 330, 50, 50};
+SDL_Rect bl_boss2 = {1000, 450, 50, 50};
+SDL_Rect bl_boss3 = {1000, 500, 50, 50};
+SDL_Rect bl_boss4 = {1000, 500, 50, 50};
+SDL_Rect bl_boss5 = {1000, 500, 30, 30};
+int animation_zombie_attack[5] = {0,0,0,0,0};
 SDL_Texture* display;
 SDL_Texture* player;
 Mix_Music *music = NULL;
@@ -548,6 +559,16 @@ void setanimation(){
     bl_animation[1].w = 100;
     bl_animation[1].h = 100;
 
+    bl_boss_animation[0].x = 0;
+    bl_boss_animation[0].y = 0;
+    bl_boss_animation[0].w = 150;
+    bl_boss_animation[0].h = 100;
+
+    bl_boss_animation[1].x = 200;
+    bl_boss_animation[1].y = 0;
+    bl_boss_animation[1].w = 150;
+    bl_boss_animation[1].h = 100;
+
 }
 int bullet(SDL_Rect a){
     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position);
@@ -780,6 +801,15 @@ bool loadmedia(){
     }
     healtzombi6_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi6_surface);
 
+<<<<<<< HEAD
+    bl_boss_surface = IMG_Load("../graphic/bl2.png");
+    if (bl_boss_surface == NULL)
+    {
+        printf("load healtzombi_bar6.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    bl_boss_texture = SDL_CreateTextureFromSurface(grenderer, bl_boss_surface);
+=======
     gameover_surface = IMG_Load("../graphic/gamewinner.png");
     if (gameover_surface == NULL)
     {
@@ -795,6 +825,7 @@ bool loadmedia(){
         success = false;
     }
     gamewinner_texture = SDL_CreateTextureFromSurface(grenderer, gamewinner_surface);
+>>>>>>> 29fdadfa830cf6de44d86fc9d51308abf7aea19f
 
     music = Mix_LoadMUS("bgm.mp3");
     if (music == NULL)
@@ -838,13 +869,13 @@ bool checkCollision( SDL_Rect a, SDL_Rect b ){
     //Calculate the sides of rect A
     leftA = a.x;
     rightA = a.x + a.w;
-    topA = a.y;
+    topA = a.y+50;
     bottomA = a.y + a.h;
 
     //Calculate the sides of rect B
     leftB = b.x;
     rightB = b.x + b.w;
-    topB = b.y;
+    topB = b.y+50;
     bottomB = b.y + b.h;
 
     //If any of the sides from A are outside of B
@@ -906,7 +937,7 @@ int main(int first, char* array[] ){
                     }
                     else if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_d){
                         animation_player++;
-                        player_position.x+=8;
+                        player_position.x+=10;
                         player1_position.x += 6;
                         bl_position.x += 8;
 
@@ -914,7 +945,7 @@ int main(int first, char* array[] ){
 
                     else if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_a){
                         animation_player++;
-                        player_position.x -= 5;
+                        player_position.x -= 10;
                         player1_position.x -= 3;
                         bl_position.x -= 5;
 
@@ -981,15 +1012,39 @@ int main(int first, char* array[] ){
                     SDL_RenderCopy(grenderer, airdrop_texture, NULL, &airdrop);
                     //SDL_RenderCopy(grenderer, zombie_die_texture, &zombie_die[animation_zombie_die / 15], &zombie_test);
                     SDL_RenderCopy(grenderer, boss_texture, &boss_animation[animation_boss / 9], &boss_position);
-
+                    bl_boss1.x -= 10;
+                    bl_boss2.x -= 10;
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position1);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position2);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position3);
                     SDL_RenderCopy(grenderer, bl_texture, &bl_animation[0], &bl_position4);
+
+                    SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[1], &bl_boss1);
+                    SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[1], &bl_boss2);
+
+
                     SDL_RenderCopy(grenderer, santabar_texture, NULL, &santabar_position);
                     SDL_RenderCopy(grenderer, zombi_texture, NULL, &zombi_position);
                     animation_zombie++;
                     animation_boss++;
+                    if (bl_boss1.x < 0 ){
+                        bl_boss1.x = 1200;
+                    }
+                    if (bl_boss2.x < 0){
+                        bl_boss2.x = 1200;
+                    }
+                     if (checkCollision(player_position, bl_boss2)){
+                        SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[0], &bl_boss2);
+                        bl_boss2.x = 1200;
+                        counthealt += 10;
+                        Mix_PlayChannel(-1, hit, 0);
+                    }
+                    if (checkCollision(player_position, bl_boss1)){
+                        SDL_RenderCopy(grenderer, bl_boss_texture, &bl_boss_animation[0], &bl_boss1);
+                        bl_boss1.x = 1200;
+                        counthealt += 10;
+                        Mix_PlayChannel(-1, hit, 0);
+                    }
                     if (checkCollision(player_position, airdrop)){
                         player = santagun_texture;
 
@@ -1101,10 +1156,21 @@ int main(int first, char* array[] ){
                             animation_zombie = 0;
                         }
                     }
-                    else{
-                        if (animation_zombie/15 > 7){
-                            animation_zombie = 0;
-                        }
+                    if (animation_zombie_attack[0]/15 > 7){
+                        animation_zombie_attack[0] = 0;
+                        counthealt++;
+                    }
+                    if (animation_zombie_attack[1]/15 > 7){
+                        animation_zombie_attack[1] = 0;
+                        counthealt++;
+                    }
+                    if (animation_zombie_attack[2]/15 > 7){
+                        animation_zombie_attack[2] = 0;
+                        counthealt++;
+                    }
+                    if (animation_zombie_attack[3]/15 > 7){
+                        animation_zombie_attack[3] = 0;
+                        counthealt++;
                     }
 
                     if (zombie_status2){
@@ -1204,6 +1270,7 @@ int main(int first, char* array[] ){
                     }*/
                     if (checkCollision(bl_position1, zombie_position) || checkCollision(bl_position1, zombie_position1) || checkCollision(bl_position1, zombie_position3) || checkCollision(bl_position1, zombie_position4) || checkCollision(bl_position1,boss_position)){
                         if (checkCollision(bl_position1, zombie_position) && alive[0]){
+
                             SDL_RenderCopy(grenderer, bl_texture, &bl_animation[1], &bl_position1);
                             bl_position1.x = 9999;
                             count_zombie++;
@@ -1415,9 +1482,10 @@ int main(int first, char* array[] ){
 
                     if (alive[0] && checkCollision( zombie_position, player_position)){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/15], &zombie_position);
+                        animation_zombie_attack[0]++;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie_attack[0]/15], &zombie_position);
                         zombie_status1 = 0;
-                        counthealt++;
+
                     }
                     else if (!alive[0]){
                         animation_zombie_die[0]++;
@@ -1430,13 +1498,14 @@ int main(int first, char* array[] ){
                         zombie_position1.x -= 4;
                         zombie = zombie_texture;
                         zombie_status3 = 1;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/19], &zombie_position1);
+                        SDL_RenderCopy(grenderer, zombie, &zombie_animation[animation_zombie/15], &zombie_position1);
                     }
                     else if (checkCollision(zombie_position1, player_position) && alive[1]){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position1);
+                        animation_zombie_attack[1]++;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie_attack[1]/15], &zombie_position1);
                         zombie_status3 = 0;
-                        counthealt++;
+
                     }
                     else if (!alive[1]){
                         animation_zombie_die[1]++;
@@ -1455,9 +1524,10 @@ int main(int first, char* array[] ){
 
                     else if (checkCollision(zombie_position3, player_position) && alive[2]){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position3);
+                        animation_zombie_attack[2]++;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie_attack[2]/15], &zombie_position3);
                         zombie_status3 = 0;
-                        counthealt++;
+
                     }
                     else if (!alive[2]){
                         animation_zombie_die[2]++;
@@ -1474,9 +1544,10 @@ int main(int first, char* array[] ){
                     }
                     else if (checkCollision(zombie_position4, player_position) && alive[3]){
                         zombie = zombieattack_texture;
-                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie/17], &zombie_position4);
+                        animation_zombie_attack[3]++;
+                        SDL_RenderCopy(grenderer, zombie, &zombie_attack_animation[animation_zombie_attack[3]/15], &zombie_position4);
                         zombie_status3 = 0;
-                        counthealt++;
+
                     }
                     else if (!alive[3]){
                         animation_zombie_die[3]++;
@@ -1486,19 +1557,19 @@ int main(int first, char* array[] ){
                     if(counthealt==0){
                         SDL_RenderCopy(grenderer, healtsanta1_texture, NULL, &healtsanta1_position);
                     }
-                    if(counthealt>0 && counthealt<160){
+                    if(counthealt>0 && counthealt<10){
                         SDL_RenderCopy(grenderer, healtsanta2_texture, NULL, &healtsanta1_position);
                     }
-                    if(counthealt>160 && counthealt<240){
+                    if(counthealt>=10 && counthealt<20){
                         SDL_RenderCopy(grenderer, healtsanta3_texture, NULL, &healtsanta1_position);
                     }
-                    if(counthealt>240 && counthealt<320){
+                    if(counthealt>=20&& counthealt<30){
                         SDL_RenderCopy(grenderer, healtsanta4_texture, NULL, &healtsanta1_position);
                     }
-                    if(counthealt>320 && counthealt<400){
+                    if(counthealt>=30 && counthealt<40){
                         SDL_RenderCopy(grenderer, healtsanta5_texture, NULL, &healtsanta1_position);
                     }
-                    if(counthealt>400){
+                    if(counthealt>=40){
                         SDL_RenderCopy(grenderer, healtsanta6_texture, NULL, &healtsanta1_position);
                         SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
                     }
