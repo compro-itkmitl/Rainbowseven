@@ -12,9 +12,9 @@
 # Team Members
 |  |ชื่อ|นามสกุล|GitHub Username|รหัสนักศึกษา|
 |:-:|--|------|---------------|---------|
-|![https://www.facebook.com/wai.waritkanbunjob](/Resource/wai.jpg)|Kavepol|Khunsri|[@Supermalonz](https://github.com/Supermalonz)|60070003|
-|![https://www.facebook.com/profile.php?id=100002495318131](/Resource/pok.jpg)|Chayakorn|Thiankao|[@Chayakorn](https://github.com/Chayakorn)|60070013|
-|![https://www.facebook.com/shipshipshipshipshipship](/Resource/eve.jpg)|Mark|Srikosapala|[@yves99](https://github.com/yves99)|60070104|
+|![](/Resource/tle.jpg)|Kavepol|Khunsri|[@Supermalonz](https://github.com/Supermalonz)|60070003|
+|![](/Resource/eng.jpg)|Chayakorn|Thiankao|[@Chayakorn](https://github.com/Chayakorn)|60070013|
+|![](/Resource/mark.jpg)|Naruthep| Chaiyasing|[@yves99](https://github.com/yves99)|60070104|
 
 
 # ![](/Resources/Team.png) Assistant Teachers
