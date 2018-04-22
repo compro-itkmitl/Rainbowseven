@@ -801,7 +801,6 @@ bool loadmedia(){
     }
     healtzombi6_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi6_surface);
 
-<<<<<<< HEAD
     bl_boss_surface = IMG_Load("../graphic/bl2.png");
     if (bl_boss_surface == NULL)
     {
@@ -809,7 +808,7 @@ bool loadmedia(){
         success = false;
     }
     bl_boss_texture = SDL_CreateTextureFromSurface(grenderer, bl_boss_surface);
-=======
+
     gameover_surface = IMG_Load("../graphic/gamewinner.png");
     if (gameover_surface == NULL)
     {
@@ -825,7 +824,7 @@ bool loadmedia(){
         success = false;
     }
     gamewinner_texture = SDL_CreateTextureFromSurface(grenderer, gamewinner_surface);
->>>>>>> 29fdadfa830cf6de44d86fc9d51308abf7aea19f
+
 
     music = Mix_LoadMUS("bgm.mp3");
     if (music == NULL)
