@@ -38,18 +38,19 @@ https://www.libsdl.org/
 
 <img src="https://scontent.fbkk1-3.fna.fbcdn.net/v/t31.0-8/30167921_1886737054727443_4796729774348062373_o.jpg?_nc_cat=0&oh=066b252ce984e92fcb7bc6bd3bae1664&oe=5B5723A9" width="px">
 
-# Team Members
+# 💻 Team Members
 |  |ชื่อ|นามสกุล|GitHub Username|รหัสนักศึกษา|
 |:-:|--|------|---------------|---------|
 |<img src="https://scontent.fbkk1-3.fna.fbcdn.net/v/t1.0-9/18156901_1456506974417122_2622418456792260905_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=486313cf448a30180b215a0fa841bb41&oe=5B59A1FB" width="100px">|Kavepol|Khunsri|[@Supermalonz](https://github.com/Supermalonz)|60070003|
 |<img src="https://scontent.fbkk1-3.fna.fbcdn.net/v/t1.0-9/10806376_942596332434956_7575925399337993121_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=9bfdf7e77c8f528e20f61109e78c0a59&oe=5B714556" width="100px">|Chayakorn|Thiankao|[@chayakornthiankhao](https://github.com/chayakornthiankhao)|60070013|
 |<img src="https://scontent.fbkk1-2.fna.fbcdn.net/v/t1.0-9/23621411_1353041484824274_1191224248939719052_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=20d19416dca74cfb0901cacf99a24806&oe=5B66378E" width="100px">|Naruthep| Chaiyasing|[@Marknaruthep](https://github.com/Marknaruthep)|600700038|
 
-# 👨‍💻Assistant Teachers 👨‍💻
+# 👨‍💻Assistant Teachers
 |ผศ. ดร. กิติ์สุชาติ พสุภา|ผศ. ดร. ปานวิทย์ ธุวะนุติ|
 |:-:|:-:|
 |<img src="https://scontent.fbkk1-4.fna.fbcdn.net/v/t1.0-9/14611010_10153805956002331_6002362915012083123_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=fdf96ad3e3dd2eb670a52e234fe22660&oe=5B50638F" width="200px">|<img src="https://scontent.fbkk1-5.fna.fbcdn.net/v/t1.0-9/10402732_10152130758782532_1878791821436724505_n.jpg?_nc_fx=fbkk1-3&_nc_cat=0&oh=dd17f1fba49f9b67512e40211665addb&oe=5B9A52E5" width="200px">|
 
 โปรเจคนี้เป็นส่วนหนึ่งของวิชา Computer Programming (รหัสวิชา 06016206)
-
 คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
+
+<img src="https://yt3.ggpht.com/a-/AJLlDp0EOlwex4kizWJ8wvKXQMMmjdJFCJEeHnYrww=s900-mo-c-c0xffffffff-rj-k-no" width="200px">
