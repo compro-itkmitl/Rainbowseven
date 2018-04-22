@@ -49,6 +49,10 @@ SDL_Surface* santabar_surface;
 SDL_Texture* santabar_texture;
 SDL_Surface* zombi_surface;
 SDL_Texture* zombi_texture;
+SDL_Surface* gameover_surface;
+SDL_Texture* gameover_texture;
+SDL_Surface* gamewinner_surface;
+SDL_Texture* gamewinner_texture;
 SDL_Surface* healtsanta1_surface;
 SDL_Texture* healtsanta1_texture;
 SDL_Surface* healtsanta2_surface;
@@ -143,7 +147,7 @@ bool ingame = false;
 bool alive[5] = {true,true,true,true,true};
 int check_bullet[5] = {0,0,0,0,0};
 int animation_zombie_die[5] = {0,0,0,0,0};
-int kuy = 0;
+bool gameover = false;
 
 
 bool init(){
@@ -797,6 +801,7 @@ bool loadmedia(){
     }
     healtzombi6_texture = SDL_CreateTextureFromSurface(grenderer, healtzombi6_surface);
 
+<<<<<<< HEAD
     bl_boss_surface = IMG_Load("../graphic/bl2.png");
     if (bl_boss_surface == NULL)
     {
@@ -804,6 +809,23 @@ bool loadmedia(){
         success = false;
     }
     bl_boss_texture = SDL_CreateTextureFromSurface(grenderer, bl_boss_surface);
+=======
+    gameover_surface = IMG_Load("../graphic/gamewinner.png");
+    if (gameover_surface == NULL)
+    {
+        printf("load gamewinner.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    gameover_texture = SDL_CreateTextureFromSurface(grenderer, gameover_surface);
+
+    gamewinner_surface = IMG_Load("../graphic/gameover.png");
+    if (gamewinner_surface == NULL)
+    {
+        printf("load gamewinner.png failed %s\n", IMG_GetError());
+        success = false;
+    }
+    gamewinner_texture = SDL_CreateTextureFromSurface(grenderer, gamewinner_surface);
+>>>>>>> 29fdadfa830cf6de44d86fc9d51308abf7aea19f
 
     music = Mix_LoadMUS("bgm.mp3");
     if (music == NULL)
@@ -1549,6 +1571,7 @@ int main(int first, char* array[] ){
                     }
                     if(counthealt>=40){
                         SDL_RenderCopy(grenderer, healtsanta6_texture, NULL, &healtsanta1_position);
+                        SDL_RenderCopy(grenderer, gamewinner_texture, NULL, NULL);
                     }
 
                     if(check_bullet[3] >= 00 && check_bullet[3] < 10){
@@ -1568,8 +1591,8 @@ int main(int first, char* array[] ){
                     }
                     if(check_bullet[3] >= 50 && check_bullet[3] < 60){
                         SDL_RenderCopy(grenderer, healtzombi6_texture, NULL, &healtzombi1_position);
+                        SDL_RenderCopy(grenderer, gameover_texture, NULL, NULL);
                     }
-
 
 
                     if (airdrop.y > 320){

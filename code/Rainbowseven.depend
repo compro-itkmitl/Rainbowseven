@@ -348,7 +348,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1524298633 source:c:\users\user\documents\github\rainbowseven\code\main.c
+1524368490 source:c:\users\user\documents\github\rainbowseven\code\main.c
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
@@ -356,6 +356,7 @@
 	<math.h>
 	<stdbool.h>
 	<stdlib.h>
+	<SDL_mixer.h>
 
 1519922211 c:\users\user\desktop\sdl_library\sdl2-2.0.8\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -725,4 +726,13 @@
 	<stdbool.h>
 	<stdlib.h>
 	<SDL_mixer.h>
+
+1508772768 c:\users\user\desktop\sdl_library\sdl2_mixer-2.0.2\i686-w64-mingw32\include\sdl2\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
 
